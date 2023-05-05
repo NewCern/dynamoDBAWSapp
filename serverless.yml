@@ -1,0 +1,30 @@
+service: addPersonApp
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: us-east-1
+
+functions:
+  addPerson:
+    handler: src/addPerson.handler
+    events:
+      - http:
+          path: /addPersonApp/add
+          method: post
+
+
+# Try this next
+# service: my-service
+
+# provider:
+#   name: aws
+#   runtime: nodejs14.x
+#   region: us-east-1
+#   environment:
+#     AWS_ACCESS_KEY_ID: ${env:AWS_ACCESS_KEY_ID}
+#     AWS_SECRET_ACCESS_KEY: ${env:AWS_SECRET_ACCESS_KEY}
+
+# functions:
+#   hello:
+#     handler: handler.hello
