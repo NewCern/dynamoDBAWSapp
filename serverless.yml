@@ -1,8 +1,9 @@
-service: addPersonApp
+service: addPersonIAM
 
 provider:
   name: aws
   runtime: nodejs16.x
+  role: arn:aws:iam::233784350905:role/addPersonAdmin
   region: us-east-1
 
 functions:
@@ -14,17 +15,10 @@ functions:
           method: post
 
 
-# Try this next
-# service: my-service
+  getPeople:
+    handler: src/getPeople.handler
+    events:
+      - http:
+          path: /getPeople
+          method: get
 
-# provider:
-#   name: aws
-#   runtime: nodejs14.x
-#   region: us-east-1
-#   environment:
-#     AWS_ACCESS_KEY_ID: ${env:AWS_ACCESS_KEY_ID}
-#     AWS_SECRET_ACCESS_KEY: ${env:AWS_SECRET_ACCESS_KEY}
-
-# functions:
-#   hello:
-#     handler: handler.hello
