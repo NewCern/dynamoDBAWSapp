@@ -14,10 +14,17 @@ const aws_sdk_1 = require("aws-sdk");
 const dynamoDB = new aws_sdk_1.DynamoDB.DocumentClient();
 const handler = (event = {}) => __awaiter(void 0, void 0, void 0, function* () {
     const user = {
+        personId: event.personId,
         firstName: event.firstName,
         lastName: event.lastName,
         address: event.address,
     };
+    if (!user.hasOwnProperty('personId')) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify('Missing personId'),
+        };
+    }
     const params = {
         TableName: 'PeopleTest',
         Item: user,
@@ -31,7 +38,7 @@ const handler = (event = {}) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         return {
-            statusCode: 500,
+            //statusCode: 500, 
             body: JSON.stringify(`Error adding user to DynamoDB: ${error}`)
         };
     }
